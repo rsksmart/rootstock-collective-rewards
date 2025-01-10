@@ -4,15 +4,11 @@ import { balanceOf } from "thirdweb/extensions/erc20";
 export default async function hasAccess(address: string): Promise<boolean> {
   return await isMember(address);
 }
-
 async function isMember(address: string): Promise<boolean> {
   const balance = await balanceOf({
     contract: stRIF,
     address: address,
   });
 
-  if (balance > 0) {
-    return true;
-  }
-  return false;
+  return balance > 0;
 }

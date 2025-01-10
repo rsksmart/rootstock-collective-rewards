@@ -4,21 +4,20 @@ import { useReadContract } from "thirdweb/react";
 import { Address } from "thirdweb";
 import { balanceOf } from "thirdweb/extensions/erc20";
 import { useActiveAccount } from "thirdweb/react";
-import { TRBTC } from "./utils/consts";
+import { stRIF, TRBTC } from "./utils/consts";
 import { LoginButton } from "./components/LoginButton";
-import hasAccess from "./actions/gate";
+import  isMember  from "./actions/gate";
 
 export default function Home() {
   const activeAccount = useActiveAccount()?.address;
-
   const balance = useReadContract(balanceOf, {
-    contract: TRBTC,
+    contract: stRIF,
     address: activeAccount as Address,
   });
 
   // Simple debug log
   if (activeAccount) {
-    hasAccess(activeAccount as Address).then(console.log);
+    isMember(activeAccount as Address).then(console.log);
   }
 
   return (

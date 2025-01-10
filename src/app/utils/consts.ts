@@ -11,10 +11,14 @@ export const rootstockTestnet = defineChain({
   },
 });
 
-
-
 export const TRBTC = getContract({
   client,
   chain: rootstockTestnet,
   address: NATIVE_TOKEN_ADDRESS,
+});
+
+export const stRIF = getContract({
+  client: client,
+  chain: rootstockTestnet,
+  address: "0xCacB5872A030d1a0Ca9267FA2AE87b4baE9D90fC", // this is the mock for now
 });

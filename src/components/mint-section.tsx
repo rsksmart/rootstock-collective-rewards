@@ -11,7 +11,7 @@ export function MintSection({ tokenAmount }: MintSectionProps) {
 
   if (level === 0) {
     return (
-      <Alert variant="destructive">
+      <Alert variant={"destructive"}>
         <AlertTriangle className="h-4 w-4" />
         <AlertTitle>Not Eligible</AlertTitle>
         <AlertDescription>
@@ -32,7 +32,7 @@ export function MintSection({ tokenAmount }: MintSectionProps) {
           </Button>
         )}
         {level >= 2 && (
-          <Button className="w-full" size="lg" variant="secondary">
+          <Button className="w-full" size="lg">
             Mint Level 2 NFT
           </Button>
         )}

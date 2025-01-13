@@ -16,11 +16,38 @@ export function TokenProgress({ tokenAmount }: TokenProgressProps) {
         <h3 className="text-lg font-semibold">Token Level</h3>
         <Badge variant="secondary">Level {level}</Badge>
       </div>
-      <Progress value={progress} className="h-2" />
-      <div className="flex justify-between text-sm text-muted-foreground">
-        <span>0 tokens</span>
-        <span>100 tokens</span>
-        <span>200 tokens</span>
+      <Progress value={progress} className="h-2 w-[90%] mx-auto" />
+      <div className="flex justify-between ">
+        <div className="flex flex-col items-center ">
+          <span
+            className={progress < 50 ? "text-orange-500" : "text-orange-500/60"}
+          >
+            Unranked
+          </span>
+          <span className="text-sm text-muted-foreground">0 tokens</span>
+        </div>
+        <div className="flex flex-col items-center ">
+          <span
+            className={
+              progress >= 50 && progress < 100
+                ? "text-orange-500"
+                : progress < 50
+                ? "text-foreground"
+                : "text-orange-500/60"
+            }
+          >
+            Rootie
+          </span>
+          <span className="text-sm text-muted-foreground">≥100 tokens</span>
+        </div>
+        <div className="flex flex-col items-center ">
+          <span
+            className={progress >= 100 ? "text-orange-500" : "text-foreground"}
+          >
+            Legend
+          </span>
+          <span className="text-sm text-muted-foreground">≥200 tokens</span>
+        </div>
       </div>
     </div>
   );

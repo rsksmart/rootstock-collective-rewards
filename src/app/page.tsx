@@ -8,6 +8,7 @@ import { stRIF, TRBTC } from "./utils/consts";
 import { LoginButton } from "../components/LoginButton";
 import isMember from "./actions/gate";
 import Hero from "@/components/Hero";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   const activeAccount = useActiveAccount()?.address;
@@ -22,16 +23,9 @@ export default function Home() {
   }
 
   return (
-    <main className=" flex flex-col items-center justify-center  ">
+    <main className="flex flex-col items-center justify-center min-h-svh">
       <Hero />
-      <div>
-        {/* Display Balance */}
-        {balance.data && (
-          <div className="text-center mt-4">
-            Balance: {balance.data.toString()}
-          </div>
-        )}
-      </div>
+      <Footer />
     </main>
   );
 }

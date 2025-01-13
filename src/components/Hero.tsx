@@ -6,9 +6,11 @@ import { TokenProgress } from "@/components/token-progress";
 import { MintSection } from "@/components/mint-section";
 import { LoginButton } from "./LoginButton";
 
+const levels = ["Unranked", "Rootie", "Legend"];
+
 export default function Hero() {
-  // Mock state for demonstration - in real app, this would come from your web3 wallet connection
   const [tokenAmount, setTokenAmount] = useState(0);
+  const level = tokenAmount >= 200 ? 2 : tokenAmount >= 100 ? 1 : 0;
 
   // Demo function to cycle through token amounts
   const cycleTokenAmount = () => {
@@ -20,7 +22,7 @@ export default function Hero() {
   };
 
   return (
-    <div className="relative w-full min-h-svh flex flex-col items-center justify-center">
+    <div className="relative w-full flex flex-col items-center justify-center grow">
       <section className="container px-4 md:px-6 flex flex-col items-center">
         <div className="mx-auto max-w-4xl space-y-12 text-center">
           <div className="space-y-6">
@@ -39,17 +41,6 @@ export default function Hero() {
           <div className="mx-auto max-w-lg space-y-8 rounded-xl border bg-card p-6 shadow-lg">
             <TokenProgress tokenAmount={tokenAmount} />
             <MintSection tokenAmount={tokenAmount} />
-
-            {/* Demo button - remove in production */}
-            <div className="pt-4">
-              <Button
-                variant="outline"
-                onClick={cycleTokenAmount}
-                className="w-full"
-              >
-                Demo: Cycle Token Amount (Current: {tokenAmount})
-              </Button>
-            </div>
           </div>
         </div>
       </section>

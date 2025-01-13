@@ -1,16 +1,21 @@
 "use client";
 
 import { ConnectButton } from "thirdweb/react";
-import { client } from "../utils/client";
-import { generatePayload, isLoggedIn, login, logout } from "../actions/auth";
-import { rootstockTestnet } from "../utils/consts";
+import { client } from "../app/utils/client";
+import {
+  generatePayload,
+  isLoggedIn,
+  login,
+  logout,
+} from "../app/actions/auth";
+import { rootstockTestnet } from "../app/utils/consts";
 
 export const LoginButton = () => {
   return (
     <ConnectButton
       autoConnect={true}
       client={client}
-      chain ={rootstockTestnet}
+      chain={rootstockTestnet}
       auth={{
         isLoggedIn: async (address) => {
           console.log("checking if logged in!", { address });

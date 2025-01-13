@@ -5,8 +5,9 @@ import { Address } from "thirdweb";
 import { balanceOf } from "thirdweb/extensions/erc20";
 import { useActiveAccount } from "thirdweb/react";
 import { stRIF, TRBTC } from "./utils/consts";
-import { LoginButton } from "./components/LoginButton";
-import  isMember  from "./actions/gate";
+import { LoginButton } from "../components/LoginButton";
+import isMember from "./actions/gate";
+import Hero from "@/components/Hero";
 
 export default function Home() {
   const activeAccount = useActiveAccount()?.address;
@@ -21,12 +22,9 @@ export default function Home() {
   }
 
   return (
-    <main className="p-4 pb-10 min-h-[100vh] flex items-center justify-center container max-w-screen-lg mx-auto">
-      <div className="py-20">
-        <div className="flex justify-center mb-20">
-          <LoginButton />
-        </div>
-
+    <main className=" flex flex-col items-center justify-center  ">
+      <Hero />
+      <div>
         {/* Display Balance */}
         {balance.data && (
           <div className="text-center mt-4">

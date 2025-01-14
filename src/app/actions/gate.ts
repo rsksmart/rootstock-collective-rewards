@@ -1,4 +1,3 @@
-import { AnyARecord } from "dns";
 import { stRIF } from "../utils/consts";
 import { balanceOf } from "thirdweb/extensions/erc20";
 

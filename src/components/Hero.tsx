@@ -1,25 +1,36 @@
 "use client";
 
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
 import { TokenProgress } from "@/components/token-progress";
 import { MintSection } from "@/components/mint-section";
 import { LoginButton } from "./LoginButton";
+import { useActiveAccount } from "thirdweb/react";
+import { Address, toEther } from "thirdweb";
+import hasAccess from "@/app/actions/gate";
 
 const levels = ["Unranked", "Rootie", "Legend"];
 
 export default function Hero() {
-  const [tokenAmount, setTokenAmount] = useState(0);
-  const level = tokenAmount >= 200 ? 2 : tokenAmount >= 100 ? 1 : 0;
+  const activeAccount = useActiveAccount()?.address;
+  const [tokenAmount, setTokenAmount] = useState<number>(0);
 
-  // Demo function to cycle through token amounts
-  const cycleTokenAmount = () => {
-    setTokenAmount((current) => {
-      if (current === 0) return 100;
-      if (current === 100) return 200;
-      return 0;
-    });
-  };
+  useEffect(() => {
+    const fetchMembershipStatus = async () => {
+      if (activeAccount) {
+        try {
+          const membershipStatus = await hasAccess(activeAccount as Address);
+          const amountInEther = toEther(membershipStatus.amount); // Convert to string
+          const parsedAmount = parseFloat(amountInEther); // Convert string to number
+          setTokenAmount(parsedAmount);
+          console.log("Token Amount (in Ether):", parsedAmount); // Debugging log
+        } catch (error) {
+          console.error("Failed to fetch membership status:", error);
+        }
+      }
+    };
+
+    fetchMembershipStatus();
+  }, [activeAccount]);
 
   return (
     <div className="relative w-full flex flex-col items-center justify-center grow">

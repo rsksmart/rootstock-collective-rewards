@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { legendContract, rootieContract } from "@/app/utils/consts";
-import { Address } from "thirdweb";
-import { balanceOf } from "thirdweb/extensions/erc721";
+import { Address, NFT } from "thirdweb";
+import { balanceOf, getOwnedNFTs, getOwnedTokenIds } from "thirdweb/extensions/erc721";
 
 export function useHasRootieNFT({
   address,
@@ -65,4 +65,39 @@ export function useHasLegendNFT({
   }, [address]);
 
   return hasNFT;
+}
+
+
+export function useOwnedNFT({
+  address,
+  contract,
+}: {
+  address: Address | undefined;
+  contract: typeof rootieContract | typeof legendContract;
+}): { ownedNFTs: NFT[]; error: string | null } {
+  const [ownedNFTs, setOwnedNFTs] = useState<NFT[]>([]);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!address) {
+      setOwnedNFTs([]);
+      return;
+    }
+
+    const fetchOwnedNFTs = async () => {
+      try {
+        //const nfts = await getOwnedTokenIds({ contract, owner: address });
+        const nfts = await getOwnedNFTs({ contract, owner: address });
+        console.log(nfts)
+        setOwnedNFTs(nfts);
+      } catch (err) {
+        console.error(`Error fetching owned NFTs for ${contract}:`, err);
+        setError("Failed to fetch owned NFTs");
+      }
+    };
+
+    fetchOwnedNFTs();
+  }, [address, contract]);
+
+  return { ownedNFTs, error };
 }

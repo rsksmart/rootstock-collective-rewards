@@ -5,18 +5,22 @@
 
 
 <p align="center">
-  <img src="logo-text-white.png" alt="Rootstock Collective" width="auto" height="auto">
+  
+  <img src="rootstock-collective.png" alt="Rootstock Collective" width="auto" height="auto">
+  <br>
 </p>
 
 The Rootstock Collective Rewards showcases a streamlined approach for creating token-gated platforms that enhance user engagement and reward participation.
 
 The user experience begins with a simple wallet connection, which authenticates the user and sets up a secure session using JWT. This ensures both security and a smooth flow throughout the platform.
 
+Next, the app checks the user’s balance of mock stRIF tokens, deployed via Thirdweb. Holding 100 stRIF tokens allows the user to mint a "Rootie NFT," unlocking exclusive access and perks. For those with 200 stRIF tokens, the platform grants access to the prestigious "Legend NFT," providing even more valuable rewards and opportunities.
 
 <p align="center">
+  <br><br>
   <img src="ss.png" alt="Rootstock Collective" width="400px" height="300">
+  <br><br>
 </p>
-Next, the app checks the user’s balance of mock stRIF tokens, deployed via Thirdweb. Holding 100 stRIF tokens allows the user to mint a "Rootie NFT," unlocking exclusive access and perks. For those with 200 stRIF tokens, the platform grants access to the prestigious "Legend NFT," providing even more valuable rewards and opportunities.
 
 This approach emphasizes the power of token-based access and NFTs to build tiered, engaging ecosystems. It’s an efficient, flexible solution for web3 developers looking to create impactful, value-driven experiences that encourage deeper community interaction and reward loyalty.
 

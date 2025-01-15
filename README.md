@@ -1,11 +1,20 @@
-# Rootstock Collective Rewards
 
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/rsksmart/rootstock-collective-rewards/badge)](https://scorecard.dev/viewer/?uri=github.com/rsksmart/ootstock-collective-rewards)
 [![CodeQL](https://github.com/rsksmart/rskj/workflows/CodeQL/badge.svg)](https://github.com/rsksmart/rootstock-collective-rewardsh/actions?query=workflow%3ACodeQL)
 
-The Rootstock Collective Rewards Dapp enhances community engagement with token-gated experiences, granting exclusive access to premium content and rewards based on token ownership.
 
-This approach ensures only qualified members can mint NFTs, access hidden content, or unlock rewards, creating a value-driven ecosystem that fosters loyalty and incentivizes participation. By leveraging blockchain and NFTs, the dapp empowers communities to deliver innovative, fair, and engaging experiences.
+
+<p align="center">
+  <img src="logo-text-white.png" alt="Rootstock Collective" width="auto" height="auto">
+</p>
+
+The Rootstock Collective Rewards showcases a streamlined approach for creating token-gated platforms that enhance user engagement and reward participation.
+
+The user experience begins with a simple wallet connection, which authenticates the user and sets up a secure session using JWT. This ensures both security and a smooth flow throughout the platform.
+
+Next, the app checks the user’s balance of mock stRIF tokens, deployed via Thirdweb. Holding 100 stRIF tokens allows the user to mint a "Rootie NFT," unlocking exclusive access and perks. For those with 200 stRIF tokens, the platform grants access to the prestigious "Legend NFT," providing even more valuable rewards and opportunities.
+
+This approach emphasizes the power of token-based access and NFTs to build tiered, engaging ecosystems. It’s an efficient, flexible solution for web3 developers looking to create impactful, value-driven experiences that encourage deeper community interaction and reward loyalty.
 
 ## Features
 
@@ -17,7 +26,6 @@ This approach ensures only qualified members can mint NFTs, access hidden conten
 ## Tech Stack
 
 - Next.js 14
-- TypeScript
 - Thirdweb (sdk, auth, connection, UI)
 - Tailwind CSS
 - Shadcn/UI Components
@@ -29,6 +37,8 @@ Smart contracts are integrated via Thirdweb SDK:
 - [stRIF](https://rootstock-testnet.blockscout.com/address/0xCacB5872A030d1a0Ca9267FA2AE87b4baE9D90fC)
 - [Rootie NFT Contract](https://rootstock-testnet.blockscout.com/address/0x683AA67632c67d1Ff86FB475FC995E554E8E2AAd)
 - [Legend NFT Contract](https://rootstock-testnet.blockscout.com/address/0xd013E82A3EE8882B011631F3C86c279559ab53bf)
+
+## Thirdweb
 
 ## Project Structure
 
@@ -50,9 +60,9 @@ Smart contracts are integrated via Thirdweb SDK:
 │   ├── components
 │   │   ├── Footer.tsx
 │   │   ├── Hero.tsx
-│   │   ├── LoginButton.tsx
-│   │   ├── mint-section.tsx
-│   │   ├── token-progress.tsx
+│   │   ├── LoginButton.tsx     # LoginButton from thirdweb configured with the auth options for jwt session
+│   │   ├── mint-section.tsx    # Gate logic implementation and minting
+│   │   ├── token-progress.tsx  # Porgress bar for the balance of stRIF
 │   │   └── ui                  # Shadcn UI components
 │   │       ├── alert.tsx
 │   │       ├── badge.tsx
@@ -61,8 +71,8 @@ Smart contracts are integrated via Thirdweb SDK:
 │   │       └── sonner.tsx
 │   └── lib
 │       ├── error.ts
-│       ├── hooks.ts
-│       └── utils.ts
+│       ├── hooks.ts            # Custom hooks for the conditional rendering in mint-section.tsx
+│       └── utils.ts            # Auth helpers for ./src/app/actions/gate.ts
 ├── tailwind.config.ts
 └── tsconfig.json
 ```

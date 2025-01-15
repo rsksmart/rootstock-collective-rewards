@@ -55,8 +55,8 @@ Smart contracts are integrated via Thirdweb SDK:
 │   │   ├── page.tsx
 │   │   └── utils
 │   │       ├── client.ts       # Thirdweb client setup
-│   │       ├── consts.ts       # Global constants
-│   │       └── thirdwebAuth.ts # Auth configuration
+│   │       ├── consts.ts       # Global constants as contracts and roostockTestnet chain declaration
+│   │       └── thirdwebAuth.ts # Thirdweb auth client config
 │   ├── components
 │   │   ├── Footer.tsx
 │   │   ├── Hero.tsx
@@ -72,7 +72,9 @@ Smart contracts are integrated via Thirdweb SDK:
 │   └── lib
 │       ├── error.ts
 │       ├── hooks.ts            # Custom hooks for the conditional rendering in mint-section.tsx
-│       └── utils.ts            # Auth helpers for ./src/app/actions/gate.ts
+│       └── utils.ts            # Auth helpers for ./src/app/actions/auth.ts
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
 ├── tailwind.config.ts
 └── tsconfig.json
 ```

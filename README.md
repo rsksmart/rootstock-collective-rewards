@@ -14,7 +14,7 @@ The user experience begins with a simple wallet connection, which authenticates 
 
 
 <p align="center">
-  <img src="ss.png" alt="Rootstock Collective" width="300px" height="200">
+  <img src="ss.png" alt="Rootstock Collective" width="400px" height="300">
 </p>
 Next, the app checks the user’s balance of mock stRIF tokens, deployed via Thirdweb. Holding 100 stRIF tokens allows the user to mint a "Rootie NFT," unlocking exclusive access and perks. For those with 200 stRIF tokens, the platform grants access to the prestigious "Legend NFT," providing even more valuable rewards and opportunities.
 

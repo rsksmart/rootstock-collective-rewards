@@ -11,16 +11,18 @@ import hasAccess from "@/app/actions/gate";
 const levels = ["Unranked", "Rootie", "Legend"];
 
 export default function Hero() {
-  const activeAccount = useActiveAccount()?.address;
+  const activeAccount = useActiveAccount();
   const [tokenAmount, setTokenAmount] = useState<number>(0);
 
   useEffect(() => {
     const fetchMembershipStatus = async () => {
       if (activeAccount) {
         try {
-          const membershipStatus = await hasAccess(activeAccount as Address);
-          const amountInEther = toEther(membershipStatus.amount); 
-          const parsedAmount = parseFloat(amountInEther); 
+          const membershipStatus = await hasAccess(
+            activeAccount?.address as Address
+          );
+          const amountInEther = toEther(membershipStatus.amount);
+          const parsedAmount = parseFloat(amountInEther);
           setTokenAmount(parsedAmount);
         } catch (error) {
           console.error("Failed to fetch membership status:", error);

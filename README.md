@@ -12,6 +12,10 @@ The Rootstock Collective Rewards showcases a streamlined approach for creating t
 
 The user experience begins with a simple wallet connection, which authenticates the user and sets up a secure session using JWT. This ensures both security and a smooth flow throughout the platform.
 
+
+<p align="center">
+  <img src="ss.png" alt="Rootstock Collective" width="300px" height="200">
+</p>
 Next, the app checks the user’s balance of mock stRIF tokens, deployed via Thirdweb. Holding 100 stRIF tokens allows the user to mint a "Rootie NFT," unlocking exclusive access and perks. For those with 200 stRIF tokens, the platform grants access to the prestigious "Legend NFT," providing even more valuable rewards and opportunities.
 
 This approach emphasizes the power of token-based access and NFTs to build tiered, engaging ecosystems. It’s an efficient, flexible solution for web3 developers looking to create impactful, value-driven experiences that encourage deeper community interaction and reward loyalty.
@@ -73,8 +77,6 @@ Smart contracts are integrated via Thirdweb SDK:
 │       ├── error.ts
 │       ├── hooks.ts            # Custom hooks for the conditional rendering in mint-section.tsx
 │       └── utils.ts            # Auth helpers for ./src/app/actions/auth.ts
->>>>>>> Stashed changes
->>>>>>> Stashed changes
 ├── tailwind.config.ts
 └── tsconfig.json
 ```

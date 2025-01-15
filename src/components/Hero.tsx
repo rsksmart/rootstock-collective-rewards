@@ -19,10 +19,9 @@ export default function Hero() {
       if (activeAccount) {
         try {
           const membershipStatus = await hasAccess(activeAccount as Address);
-          const amountInEther = toEther(membershipStatus.amount); // Convert to string
-          const parsedAmount = parseFloat(amountInEther); // Convert string to number
+          const amountInEther = toEther(membershipStatus.amount); 
+          const parsedAmount = parseFloat(amountInEther); 
           setTokenAmount(parsedAmount);
-          console.log("Token Amount (in Ether):", parsedAmount); // Debugging log
         } catch (error) {
           console.error("Failed to fetch membership status:", error);
         }

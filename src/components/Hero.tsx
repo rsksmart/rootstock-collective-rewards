@@ -38,12 +38,12 @@ export default function Hero() {
       <section className="container px-4 md:px-6 flex flex-col items-center">
         <div className="mx-auto max-w-4xl space-y-12 text-center">
           <div className="space-y-6">
-            <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl">
-              Exclusive NFT Collection
+            <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl text-black">
+              Rootstock Collective Rewards
             </h1>
-            <p className="mx-auto max-w-[600px] text-lg text-muted-foreground md:text-xl">
-              Unlock exclusive NFTs with your tokens. The more tokens you hold,
-              the more exclusive NFTs you can mint.
+            <p className="mx-auto max-w-[600px] text-lg md:text-xl text-black/80">
+              Unlock exclusive NFTs based on your stRIF tokens. The more tokens
+              you hold, the more exclusive NFTs you can mint.
             </p>
           </div>
 

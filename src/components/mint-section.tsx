@@ -1,8 +1,19 @@
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertTriangle } from "lucide-react";
-import { NFTDescription, NFTMedia, NFTName, NFTProvider, TransactionButton, useActiveAccount } from "thirdweb/react";
+import {
+  NFTDescription,
+  NFTMedia,
+  NFTName,
+  NFTProvider,
+  TransactionButton,
+  useActiveAccount,
+} from "thirdweb/react";
 import { claimTo, getNFTs, getOwnedNFTs } from "thirdweb/extensions/erc721";
-import { rootieContract, legendContract, rootstockTestnet } from "@/app/utils/consts";
+import {
+  rootieContract,
+  legendContract,
+  rootstockTestnet,
+} from "@/app/utils/consts";
 import { toast } from "sonner";
 import { waitForReceipt } from "thirdweb/transaction";
 import { extractErrorMessages } from "@/lib/error";
@@ -17,11 +28,11 @@ interface MintSectionProps {
 const LEVEL_THRESHOLDS = {
   LEVEL_2: {
     amount: 200,
-    contract: 'Legend',
+    contract: "Legend",
   },
   LEVEL_1: {
     amount: 100,
-    contract: 'Rootie',
+    contract: "Rootie",
   },
 } as const;
 
@@ -47,7 +58,7 @@ export function MintSection({ tokenAmount }: MintSectionProps) {
         }
       };
       fetchRootie();
-  
+
       const fetchLegend = async () => {
         try {
           const nfts = await getNFTs({
@@ -61,7 +72,7 @@ export function MintSection({ tokenAmount }: MintSectionProps) {
         }
       };
       fetchLegend();
-  
+
       const fetchOwnedRootie = async () => {
         try {
           const nfts = await getOwnedNFTs({
@@ -74,7 +85,7 @@ export function MintSection({ tokenAmount }: MintSectionProps) {
         }
       };
       fetchOwnedRootie();
-  
+
       const fetchOwnedLegend = async () => {
         try {
           const nfts = await getOwnedNFTs({
@@ -89,7 +100,6 @@ export function MintSection({ tokenAmount }: MintSectionProps) {
       fetchOwnedLegend();
     }
   }, [address]); // Fetch NFTs whenever the address changes
-  
 
   const getLevel = (amount: number) => {
     if (amount >= LEVEL_THRESHOLDS.LEVEL_2.amount) return 2;
@@ -119,8 +129,8 @@ export function MintSection({ tokenAmount }: MintSectionProps) {
         <AlertTriangle className="h-4 w-4" />
         <AlertTitle>Not Eligible</AlertTitle>
         <AlertDescription>
-          You need at least {LEVEL_THRESHOLDS.LEVEL_1.amount} tokens to mint an NFT.
-          You currently have {tokenAmount} tokens.
+          You need at least {LEVEL_THRESHOLDS.LEVEL_1.amount} tokens to mint an
+          NFT. You currently have {tokenAmount} tokens.
         </AlertDescription>
       </Alert>
     );
@@ -244,8 +254,9 @@ export function MintSection({ tokenAmount }: MintSectionProps) {
 
       {/* Display Token Info */}
       {level >= 1 && (
-        <p className="text-sm text-gray-500 mt-2">
-          You have {tokenAmount} tokens, qualifying you for Level {level} NFT minting.
+        <p className="text-sm text-muted-foreground mt-2">
+          You have {tokenAmount} tokens, qualifying you for Level {level} NFT
+          minting.
         </p>
       )}
     </div>

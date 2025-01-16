@@ -1,21 +1,14 @@
-"use client";
-
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertTriangle } from "lucide-react";
-import { NFTMedia, NFTProvider, TransactionButton, useActiveAccount } from "thirdweb/react";
-import { claimTo, getNFTs } from "thirdweb/extensions/erc721";
-import {
-  rootieContract,
-  legendContract,
-  rootstockTestnet,
-} from "@/app/utils/consts";
+import { NFTDescription, NFTMedia, NFTName, NFTProvider, TransactionButton, useActiveAccount } from "thirdweb/react";
+import { claimTo, getNFTs, getOwnedNFTs } from "thirdweb/extensions/erc721";
+import { rootieContract, legendContract, rootstockTestnet } from "@/app/utils/consts";
 import { toast } from "sonner";
 import { waitForReceipt } from "thirdweb/transaction";
 import { extractErrorMessages } from "@/lib/error";
 import { client } from "@/app/utils/client";
 import { useEffect, useState } from "react";
 import { useHasLegendNFT, useHasRootieNFT } from "@/lib/hooks";
-
 
 interface MintSectionProps {
   tokenAmount: number;
@@ -36,25 +29,67 @@ export function MintSection({ tokenAmount }: MintSectionProps) {
   const account = useActiveAccount();
   const address = account?.address;
   const [txInProgress, setTxInProgress] = useState(false);
-  const [nfts, setNfts] = useState<any[]>([]);
   const hasRootieNFT = useHasRootieNFT({ address });
   const hasLegendNFT = useHasLegendNFT({ address });
-
   useEffect(() => {
     // Fetch owned NFTs when the address is available
     if (address) {
-      const fetchNFTs = async () => {
-        const nfts = await getNFTs({
-          contract: rootieContract,
-          start: 0,
-          count: 1,
-        });
-        setNfts(nfts); 
-        console.log(nfts); // Store the fetched NFTs
+      const fetchRootie = async () => {
+        try {
+          const nfts = await getNFTs({
+            contract: rootieContract,
+            start: 0,
+            count: 110,
+          });
+          console.log("Rootie NFTs:", nfts); // Store the fetched NFTs
+        } catch (error) {
+          console.error("Error fetching Rootie NFTs:", error);
+        }
       };
-      fetchNFTs();
+      fetchRootie();
+  
+      const fetchLegend = async () => {
+        try {
+          const nfts = await getNFTs({
+            contract: legendContract,
+            start: 0,
+            count: 110,
+          });
+          console.log("Legend NFTs:", nfts); // Store the fetched NFTs
+        } catch (error) {
+          console.error("Error fetching Legend NFTs:", error);
+        }
+      };
+      fetchLegend();
+  
+      const fetchOwnedRootie = async () => {
+        try {
+          const nfts = await getOwnedNFTs({
+            contract: rootieContract, // You should fetch from rootieContract here as you seem to be fetching owned rooties
+            owner: address as string,
+          });
+          console.log("Owned Rootie NFTs:", nfts); // Store the fetched NFTs
+        } catch (error) {
+          console.error("Error fetching owned Rootie NFTs:", error);
+        }
+      };
+      fetchOwnedRootie();
+  
+      const fetchOwnedLegend = async () => {
+        try {
+          const nfts = await getOwnedNFTs({
+            contract: legendContract,
+            owner: address as string,
+          });
+          console.log("Owned Legend NFTs:", nfts); // Store the fetched NFTs
+        } catch (error) {
+          console.error("Error fetching owned Legend NFTs:", error);
+        }
+      };
+      fetchOwnedLegend();
     }
-  }, [address]);
+  }, [address]); // Fetch NFTs whenever the address changes
+  
 
   const getLevel = (amount: number) => {
     if (amount >= LEVEL_THRESHOLDS.LEVEL_2.amount) return 2;
@@ -161,48 +196,56 @@ export function MintSection({ tokenAmount }: MintSectionProps) {
 
   return (
     <div className="space-y-4">
-      {!hasLegendNFT && !hasRootieNFT && (
-        <>
-          <h3 className="text-lg font-semibold">Available Mints</h3>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {level >= 1 && !hasRootieNFT && (
+      {/* Container for grid layout */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {/* Rootie NFT Section */}
+        <div className="space-y-4">
+          {!hasRootieNFT && level >= 1 && (
+            <>
+              <h3 className="text-lg font-semibold">Rootie Mint</h3>
               <MintButton disabled={txInProgress} level={1} />
-            )}
-            {level >= 2 && !hasLegendNFT && (
+            </>
+          )}
+          {hasRootieNFT && (
+            <>
+              <h3 className="text-lg font-semibold">My Rootie NFT</h3>
+              <div className="border p-4 rounded-lg">
+                <NFTProvider contract={rootieContract} tokenId={4n}>
+                  <NFTName />
+                  <NFTMedia />
+                  <NFTDescription />
+                </NFTProvider>
+              </div>
+            </>
+          )}
+        </div>
+
+        {/* Legend NFT Section */}
+        <div className="space-y-4">
+          {!hasLegendNFT && level >= 2 && (
+            <>
+              <h3 className="text-lg font-semibold">Legend Mint</h3>
               <MintButton disabled={txInProgress} level={2} />
-            )}
-          </div>
-        </>
-      )}
+            </>
+          )}
+          {hasLegendNFT && (
+            <>
+              <h3 className="text-lg font-semibold">My Legend NFT</h3>
+              <div className="border p-4 rounded-lg">
+                <NFTProvider contract={legendContract} tokenId={4n}>
+                  <NFTName />
+                  <NFTMedia />
+                </NFTProvider>
+              </div>
+            </>
+          )}
+        </div>
+      </div>
 
-{(hasLegendNFT || hasRootieNFT) && (
-        <>
-          <h3 className="text-lg font-semibold">My NFTs</h3>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {nfts.length > 0 ? (
-              nfts.map((nft, index) => (
-                <div key={index} className="border p-4 rounded-lg">
-                  <NFTProvider
-                    contract={
-                      nftCollection === "Rootie" ? rootieContract : legendContract
-                    }
-                    tokenId={4n}
-                  >
-                    <NFTMedia />
-                  </NFTProvider>
-                </div>
-              ))
-            ) : (
-              <p className="text-sm text-gray-500">You have not minted any NFTs yet.</p>
-            )}
-          </div>
-        </>
-      )}
-
+      {/* Display Token Info */}
       {level >= 1 && (
         <p className="text-sm text-gray-500 mt-2">
-          You have {tokenAmount} tokens, qualifying you for Level {level} NFT
-          minting.
+          You have {tokenAmount} tokens, qualifying you for Level {level} NFT minting.
         </p>
       )}
     </div>

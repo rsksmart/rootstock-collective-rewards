@@ -197,10 +197,9 @@ export function MintSection({ tokenAmount }: MintSectionProps) {
             <>
               <h3 className="text-lg font-semibold">My Rootie NFT</h3>
               <div className="border p-4 rounded-lg">
-                <NFTProvider contract={rootieContract} tokenId={4n}>
+                <NFTProvider contract={rootieContract} tokenId={2n}>
                   <NFTName />
                   <NFTMedia />
-                  <NFTDescription />
                 </NFTProvider>
               </div>
             </>
@@ -219,7 +218,7 @@ export function MintSection({ tokenAmount }: MintSectionProps) {
             <>
               <h3 className="text-lg font-semibold">My Legend NFT</h3>
               <div className="border p-4 rounded-lg">
-                <NFTProvider contract={legendContract} tokenId={4n}>
+                <NFTProvider contract={legendContract} tokenId={0n}>
                   <NFTName />
                   <NFTMedia />
                 </NFTProvider>

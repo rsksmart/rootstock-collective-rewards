@@ -8,7 +8,7 @@ import {
   TransactionButton,
   useActiveAccount,
 } from "thirdweb/react";
-import { claimTo, getNFTs, getOwnedNFTs } from "thirdweb/extensions/erc721";
+import { claimTo, getNFTs, getOwnedNFTs, getOwnedTokenIds } from "thirdweb/extensions/erc721";
 import {
   rootieContract,
   legendContract,
@@ -20,6 +20,7 @@ import { extractErrorMessages } from "@/lib/error";
 import { client } from "@/app/utils/client";
 import { useEffect, useState } from "react";
 import { useHasLegendNFT, useHasRootieNFT } from "@/lib/hooks";
+import { getOwnedERC721s } from "@/extensions/getOwnedERC721s";
 
 interface MintSectionProps {
   tokenAmount: number;
@@ -45,60 +46,36 @@ export function MintSection({ tokenAmount }: MintSectionProps) {
   useEffect(() => {
     // Fetch owned NFTs when the address is available
     if (address) {
-      const fetchRootie = async () => {
-        try {
-          const nfts = await getNFTs({
-            contract: rootieContract,
-            start: 0,
-            count: 110,
-          });
-          console.log("Rootie NFTs:", nfts); // Store the fetched NFTs
-        } catch (error) {
-          console.error("Error fetching Rootie NFTs:", error);
-        }
-      };
-      fetchRootie();
-
-      const fetchLegend = async () => {
-        try {
-          const nfts = await getNFTs({
-            contract: legendContract,
-            start: 0,
-            count: 110,
-          });
-          console.log("Legend NFTs:", nfts); // Store the fetched NFTs
-        } catch (error) {
-          console.error("Error fetching Legend NFTs:", error);
-        }
-      };
-      fetchLegend();
+     
+     
 
       const fetchOwnedRootie = async () => {
         try {
-          const nfts = await getOwnedNFTs({
+          const nfts = await getOwnedERC721s({
             contract: rootieContract, // You should fetch from rootieContract here as you seem to be fetching owned rooties
             owner: address as string,
           });
-          console.log("Owned Rootie NFTs:", nfts); // Store the fetched NFTs
+          console.log("Owned Rootie NFTs:getOwnedERC721s", nfts); // Store the fetched NFTs
         } catch (error) {
-          console.error("Error fetching owned Rootie NFTs:", error);
+          console.error("Error fetching owned Rootie NFTs: getOwnedERC721s", error);
         }
       };
       fetchOwnedRootie();
 
       const fetchOwnedLegend = async () => {
         try {
-          const nfts = await getOwnedNFTs({
-            contract: legendContract,
+          const nfts = await getOwnedERC721s({
+            contract: legendContract, // You should fetch from rootieContract here as you seem to be fetching owned rooties
             owner: address as string,
           });
-          console.log("Owned Legend NFTs:", nfts); // Store the fetched NFTs
+          console.log("Owned Legend NFTs:getOwnedERC721s", nfts); // Store the fetched NFTs
         } catch (error) {
-          console.error("Error fetching owned Legend NFTs:", error);
+          console.error("Error fetching owned Legend NFTs: getOwnedERC721s", error);
         }
       };
       fetchOwnedLegend();
     }
+  
   }, [address]); // Fetch NFTs whenever the address changes
 
   const getLevel = (amount: number) => {
